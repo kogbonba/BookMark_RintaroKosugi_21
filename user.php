@@ -11,7 +11,7 @@ $pdo = db_conn();
 // }
 
 //２．データ取得SQL作成
-$stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
+$stmt = $pdo->prepare("SELECT * FROM gs_user_table");
 $status = $stmt->execute();
 
 //３．データ表示
@@ -22,20 +22,17 @@ if ($status == false) {
 }else{
     //Selectデータの数だけ自動でループしてくれる
     //FETCH_ASSOC=http://php.net/manual/ja/pdostatement.fetch.php
-    while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
-        $view .= '<p>';
-
-        $view .= '<a href="bm_update_view.php?id=' . $result['id'] . '">';
-        $view .= $result["indate"] . "：" . $result["name"];
-        $view .= '</a>';
-
-        $view .= '<a href="bm_update_view.php?id=' . $result['id'] . '">';
-        $view .= '[削除]';
-        $view .= '</a>';
-        
-
-        $view .= '</p>';
-    }
+        while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $view .= '<p>';
+            $view .= '<a href="detail.php?id=' . $r["id"] . '">';
+            $view .= $r["lid"] . " " . $r["name"] . " " . $r["kanri_flg"];
+            $view .= '</a>';
+            $view .= "　";
+            $view .= '<a class="btn btn-danger" href="delete.php?id=' . $r["id"] . '">';
+            $view .= '[<i class="glyphicon glyphicon-remove"></i>削除]';
+            $view .= '</a>';
+            $view .= '</p>';
+        }
 
 }
 ?>
@@ -47,7 +44,7 @@ if ($status == false) {
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>お気に入りの本一覧</title>
+<title>ユーザー一覧</title>
 <link rel="stylesheet" href="css/range.css">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <style>div{padding: 10px;font-size:16px;}</style>
@@ -58,7 +55,7 @@ if ($status == false) {
     <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-        <a class="navbar-brand" href="index.php">お気に入りの本登録</a>
+        <a class="navbar-brand" href="register.php">ユーザー登録</a>
         </div>
     </div>
     </nav>
@@ -68,7 +65,7 @@ if ($status == false) {
 <!-- Main[Start] -->
 <div>
     <div class="container jumbotron">
-    <a href="bm_update_view.php"></a>
+    <a href="insert.php"></a>
     <?php echo $view ?>
     </div>
 </div>
