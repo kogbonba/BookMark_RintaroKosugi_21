@@ -10,7 +10,8 @@ require_once("funcs.php");
 $pdo = db_conn();
 
 //３．データ登録SQL作成
-$stmt = $pdo->prepare("INSERT INTO gs_user_table(name,lid,lpw,kanri_flg)VALUES(:name,:lid,:lpw,:kanri_flg)");
+$stmt = $pdo->prepare("INSERT INTO gs_user_table(name,lid,lpw,kanri_flg)
+VALUES(:name,:lid,:lpw,:kanri_flg)");
 // 数値の場合 PDO::PARAM_INT
 // 文字の場合 PDO::PARAM_STR
 $stmt->bindValue(':name', $name, PDO::PARAM_STR);

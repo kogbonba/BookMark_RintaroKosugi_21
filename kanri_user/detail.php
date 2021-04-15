@@ -22,7 +22,7 @@ if ($status == false) {
 <head>
     <meta charset="UTF-8">
     <title>データ更新</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <style>
         div {
             padding: 10px;
